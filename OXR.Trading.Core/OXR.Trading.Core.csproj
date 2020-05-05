@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OXR.Trading.ApiFramework\OXR.Trading.ApiFramework.csproj" />
+    <ProjectReference Include="..\OXR.Trading.Data\OXR.Trading.Data.csproj" />
+  </ItemGroup>
+
+</Project>

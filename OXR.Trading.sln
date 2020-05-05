@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OXR.Trading.Core", "OXR.Trading.Core\OXR.Trading.Core.csproj", "{7A6D9843-FA74-4A7C-A777-EBA2B019636E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OXR.Trading.Common", "OXR.Trading.Common\OXR.Trading.Common.csproj", "{042945FD-B6D3-4B5E-8BEB-4EA17EB3F140}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OXR.Trading.ApiFramework", "OXR.Trading.ApiFramework\OXR.Trading.ApiFramework.csproj", "{7B9D0889-DD33-40B0-93ED-7EAB5E1D690D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OXR.Trading.Data", "OXR.Trading.Data\OXR.Trading.Data.csproj", "{4E3E9528-0BF9-4D01-9D34-34685198AA4C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OXR.Trading.WebApi", "OXR.Trading.WebApi\OXR.Trading.WebApi.csproj", "{E54AF90D-FC47-49E3-AA38-603A9283B563}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A6D9843-FA74-4A7C-A777-EBA2B019636E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A6D9843-FA74-4A7C-A777-EBA2B019636E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A6D9843-FA74-4A7C-A777-EBA2B019636E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A6D9843-FA74-4A7C-A777-EBA2B019636E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042945FD-B6D3-4B5E-8BEB-4EA17EB3F140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042945FD-B6D3-4B5E-8BEB-4EA17EB3F140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042945FD-B6D3-4B5E-8BEB-4EA17EB3F140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042945FD-B6D3-4B5E-8BEB-4EA17EB3F140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9D0889-DD33-40B0-93ED-7EAB5E1D690D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9D0889-DD33-40B0-93ED-7EAB5E1D690D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9D0889-DD33-40B0-93ED-7EAB5E1D690D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9D0889-DD33-40B0-93ED-7EAB5E1D690D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E3E9528-0BF9-4D01-9D34-34685198AA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E3E9528-0BF9-4D01-9D34-34685198AA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E3E9528-0BF9-4D01-9D34-34685198AA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E3E9528-0BF9-4D01-9D34-34685198AA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E54AF90D-FC47-49E3-AA38-603A9283B563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54AF90D-FC47-49E3-AA38-603A9283B563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54AF90D-FC47-49E3-AA38-603A9283B563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54AF90D-FC47-49E3-AA38-603A9283B563}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E21B0A8E-82A1-4B74-97EA-282E0D220F3F}
+	EndGlobalSection
+EndGlobal
