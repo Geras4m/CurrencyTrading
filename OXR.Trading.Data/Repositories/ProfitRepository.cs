@@ -1,4 +1,6 @@
-﻿using OXR.Trading.Data.Entities;
+﻿using OXR.Trading.Common.Enum;
+using OXR.Trading.Common.Exceptions;
+using OXR.Trading.Data.Entities;
 using OXR.Trading.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,15 @@ namespace OXR.Trading.Data.Repositories
         }
 
         public IQueryable<DailyProfit> SelectByDate(DateTime startDate, DateTime endDate)
-            => _entities.Where(p => p.DealDay >= startDate && p.DealDay <= endDate);
-        
+        {
+            try
+            {
+                return _entities.Where(p => p.DealDay >= startDate && p.DealDay <= endDate);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
     }
 }

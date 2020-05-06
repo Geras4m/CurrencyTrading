@@ -40,8 +40,15 @@ namespace OXR.Trading.Data.Repositories
 
         public Trade InsertOnDate(Trade entity)
         {
-            entity.DealDate = DateTime.Now;
-            return _entities.AddAsync(entity).Result.Entity;
+            try
+            {
+                entity.DealDate = DateTime.Now;
+                return _entities.AddAsync(entity).Result.Entity;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }            
         }
     }
 }

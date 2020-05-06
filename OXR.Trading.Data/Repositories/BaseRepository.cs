@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using OXR.Trading.Common.Exceptions;
+using OXR.Trading.Common.Enum;
 
 namespace OXR.Trading.Data.Repositories
 {
@@ -16,7 +18,7 @@ namespace OXR.Trading.Data.Repositories
 
         protected BaseRepository(DbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context ?? throw new DataAccessException(ErrorCode.InternalError, new ArgumentNullException(nameof(context)).Message, new ArgumentNullException(nameof(context)));
             _entities = context.Set<TEntity>();
         }
         #endregion
@@ -25,15 +27,31 @@ namespace OXR.Trading.Data.Repositories
 
         public async Task<TEntity> SelectAsync(params object[] keyValues)
         {
-            var result = await _entities.FindAsync(keyValues);
-            return result;
+            try
+            {
+                var result = await _entities.FindAsync(keyValues);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
         }
-          
+
 
         public IQueryable<TEntity> SelectAll() => _entities;
 
         public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> predicate)
-            => _entities.Where(predicate);
+        {
+            try
+            {
+                return _entities.Where(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         #endregion
 
@@ -43,19 +61,64 @@ namespace OXR.Trading.Data.Repositories
         #region C-UD Methods
 
         public TEntity Insert(TEntity entity)
-            => _entities.AddAsync(entity).Result.Entity;
+        {
+            try
+            {
+                return _entities.AddAsync(entity).Result.Entity;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         public void Update(TEntity entity)
-            => _context.Entry(entity).State = EntityState.Modified;
+        {
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         public async Task DeleteAsync(params object[] keyValues)
-            => _entities.Remove(await _entities.FindAsync(keyValues));
+        {
+            try
+            {
+                _entities.Remove(await _entities.FindAsync(keyValues));
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         public void Delete(TEntity entity)
-            => _entities.Remove(entity);
+        {
+            try
+            {
+                _entities.Remove(entity);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         public async Task SaveChangesAsync()
-            => await _context.SaveChangesAsync();
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
+        }
 
         #endregion
 
