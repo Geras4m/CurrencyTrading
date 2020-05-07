@@ -5,6 +5,7 @@ using OXR.Trading.Data.Entities;
 using OXR.Trading.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace OXR.Trading.Core.Services
 {
@@ -23,12 +24,13 @@ namespace OXR.Trading.Core.Services
             return _mapper.Map<IList<TradeDto>>(entities);
         }
 
+        public IList<TradeDto> GetTradesByDate(DateTime date)
+            => _mapper.Map<IList<TradeDto>>(_tradeRepository.SelectTradesByDate(date));
+
         public TradeDto AddOnDate(TradeDto trade)
         {
             var entity = _tradeRepository.InsertOnDate(_mapper.Map<Trade>(trade));
             return _mapper.Map<TradeDto>(entity);
         }
-            
-        
     }
 }

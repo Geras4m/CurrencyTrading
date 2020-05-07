@@ -36,15 +36,6 @@ namespace OXR.Trading.WebApi.Controllers
             return Ok(_mapper.Map<IList<DailyProfitResponse>>(profitDtos));
         }
 
-        [HttpGet("sale/{pro}")]
-        [ProducesResponseType(200, Type = typeof(IList<DailyProfitResponse>))]
-        public IActionResult GetTrades(decimal pro)
-        {
-            var tradeDtos = _profitService.GetAll(t => t.ProfitInGBP > pro);
-            //var listDtos = tradeDtos.ToList();
-            return Ok(_mapper.Map<IList<DailyProfitResponse>>(tradeDtos));
-        }
-
         [HttpGet("dates")]
         [ProducesResponseType(200, Type = typeof(IList<DailyProfitResponse>))]
         public IActionResult GetProfitsByDate(DateTime startDate, DateTime endDate)
@@ -54,9 +45,12 @@ namespace OXR.Trading.WebApi.Controllers
                 var yesterday = endDate.AddDays(-1);
                 var profitDtosUpToday = _profitService.GetByDate(startDate, yesterday);
                 var result = _mapper.Map<IList<DailyProfitResponse>>(profitDtosUpToday);
-                var trades = _tradeService.GetAll(p => p.DealDate.Date == endDate.Date);
+                var trades = _tradeService.GetTradesByDate(endDate);
 
-                if (trades.Count > 1)
+                if (!trades.Any())
+                    return Ok(result);
+
+                else if (trades.Count > 1)
                 {
                     decimal profitToday = 0M;
                     foreach (var item in trades)

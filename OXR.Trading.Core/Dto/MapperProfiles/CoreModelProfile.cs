@@ -6,6 +6,8 @@ using OXR.Trading.ApiFramework.Models;
 using System.Linq.Expressions;
 using System.Text;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace OXR.TradingApp.Core.Dto.MapperProfiles
 {
@@ -21,7 +23,6 @@ namespace OXR.TradingApp.Core.Dto.MapperProfiles
 
             CreateMap<LatestRatesDto, LatestRates>()
                 .ReverseMap();
-
 
             CreateMap<IQueryable<DailyProfit>, IQueryable<DailyProfitDto>>()
                 .ReverseMap();

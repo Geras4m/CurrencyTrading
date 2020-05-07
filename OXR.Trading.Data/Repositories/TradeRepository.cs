@@ -4,6 +4,7 @@ using OXR.Trading.Data.Entities;
 using OXR.Trading.Data.Repositories.Interfaces;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace OXR.Trading.Data.Repositories
@@ -49,6 +50,19 @@ namespace OXR.Trading.Data.Repositories
             {
                 throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
             }            
+        }
+
+        public IQueryable<Trade> SelectTradesByDate(DateTime date)
+        {
+            try
+            {
+                var entities = _entities.Where(t => t.DealDate.Date == date.Date);
+                return entities;
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
+            }
         }
     }
 }

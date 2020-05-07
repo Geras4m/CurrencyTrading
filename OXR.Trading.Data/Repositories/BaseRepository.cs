@@ -45,7 +45,8 @@ namespace OXR.Trading.Data.Repositories
         {
             try
             {
-                return _entities.Where(predicate);
+                var entities = _entities.Where(predicate);
+                return entities;
             }
             catch (Exception ex)
             {

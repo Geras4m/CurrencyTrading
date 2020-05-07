@@ -38,18 +38,14 @@ namespace OXR.Trading.Core.Services
             => _mapper.Map<IList<TDto>>(_repository.SelectAll().ToList());
 
         public IList<TDto> GetAll(Expression<Func<TDto, bool>> predicate)
-        {
-            var x = OnGetAll(predicate);
-            var list = x.ToList();
-            return list;
-        }
+            => OnGetAll(predicate);
 
-        protected virtual IEnumerable<TDto> OnGetAll(Expression<Func<TDto, bool>> predicate)
+        protected virtual IList<TDto> OnGetAll(Expression<Func<TDto, bool>> predicate)
         {
             Expression<Func<TEntity, bool>> pred = _mapper.Map<Expression<Func<TEntity, bool>>>(predicate);
-            var entities = _repository.SelectAll(pred).AsEnumerable();
-            //var list = entities.ToList();
-            return _mapper.Map<IEnumerable<TDto>>(entities);
+            var entities = _repository.SelectAll(pred);
+
+            return _mapper.Map<IList<TDto>>(entities);
         }
 
         #endregion
