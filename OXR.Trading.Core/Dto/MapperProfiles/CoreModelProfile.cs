@@ -24,7 +24,7 @@ namespace OXR.TradingApp.Core.Dto.MapperProfiles
             CreateMap<LatestRatesDto, LatestRates>()
                 .ReverseMap();
 
-            CreateMap<IQueryable<DailyProfit>, IQueryable<DailyProfitDto>>()
+            CreateMap<List<DailyProfit>, IList<DailyProfitDto>>()
                 .ReverseMap();
 
             CreateMap<Expression<Func<TradeDto, bool>>, Expression<Func<Trade, bool>>>()

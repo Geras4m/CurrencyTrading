@@ -1,4 +1,5 @@
-﻿using OXR.Trading.Common.Enum;
+﻿using Microsoft.EntityFrameworkCore;
+using OXR.Trading.Common.Enum;
 using OXR.Trading.Common.Exceptions;
 using OXR.Trading.Data.Entities;
 using OXR.Trading.Data.Repositories.Interfaces;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OXR.Trading.Data.Repositories
 {

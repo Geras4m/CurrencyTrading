@@ -35,7 +35,7 @@ namespace OXR.Trading.Core.Services
             => OnGetAll();
 
         protected virtual IList<TDto> OnGetAll()
-            => _mapper.Map<IList<TDto>>(_repository.SelectAll().ToList());
+            => _mapper.Map<IList<TDto>>(_repository.SelectAll());
 
         public IList<TDto> GetAll(Expression<Func<TDto, bool>> predicate)
             => OnGetAll(predicate);

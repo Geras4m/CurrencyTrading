@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using OXR.Trading.Common.Exceptions;
 using OXR.Trading.Common.Enum;
+using System.Collections.Generic;
 
 namespace OXR.Trading.Data.Repositories
 {
@@ -18,7 +19,7 @@ namespace OXR.Trading.Data.Repositories
 
         protected BaseRepository(DbContext context)
         {
-            _context = context ?? throw new DataAccessException(ErrorCode.InternalError, new ArgumentNullException(nameof(context)).Message, new ArgumentNullException(nameof(context)));
+            _context = context;
             _entities = context.Set<TEntity>();
         }
         #endregion
@@ -37,8 +38,8 @@ namespace OXR.Trading.Data.Repositories
                 throw new DataAccessException(ErrorCode.InternalError, ex.Message, ex);
             }
         }
-
-
+        
+        
         public IQueryable<TEntity> SelectAll() => _entities;
 
         public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> predicate)

@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace OXR.Trading.WebApi.Models.RequestModels
+namespace OXR.Trading.Core.Dto
 {
     public class TradeModel
     {

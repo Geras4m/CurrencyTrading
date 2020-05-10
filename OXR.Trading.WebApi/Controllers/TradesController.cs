@@ -22,14 +22,14 @@ namespace OXR.Trading.WebApi.Controllers
     {
         #region Fields, Constructors
         private readonly ITradeService _tradeService;
-        private readonly IRateService _rateService;
+        private readonly ITradeFacade _tradeFacade;
         private readonly IMyMapper _mapper;
         private readonly IOptions<AppConfig> _appConfig;
 
-        public TradesController(ITradeService tradeService, IRateService rateService, IMyMapper mapper, IOptions<AppConfig> appConfig)
+        public TradesController(ITradeService tradeService, ITradeFacade tradeFacade, IMyMapper mapper, IOptions<AppConfig> appConfig)
         {
             _tradeService = tradeService ?? throw new ArgumentNullException(nameof(tradeService));
-            _rateService = rateService ?? throw new ArgumentNullException(nameof(tradeService));
+            _tradeFacade = tradeFacade ?? throw new ArgumentNullException(nameof(tradeFacade));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _appConfig = appConfig ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -66,30 +66,13 @@ namespace OXR.Trading.WebApi.Controllers
         }
 
         [HttpPost("create")]
-        [ProducesResponseType(202, Type = typeof(TradeResponse))]
+        [ProducesResponseType(201, Type = typeof(TradeResponse))]
         public async Task<IActionResult> CreateTrade([FromBody]TradeModel trade)
         {
             if (ModelState.IsValid)
             {
-                var tradeResponse = new TradeResponse()
-                {
-                    SellingCurrency = trade.SellingCurrency,
-                    BuyingCurrency = trade.BuyingCurrency,
-                    SoldAmount = trade.SoldAmount,
-                    ClientName = trade.ClientName
-                };
-                var latestRates = _rateService.GetLatestRates();
-                var rateBuyingCurrency = _rateService.GetBrokerRate(latestRates, tradeResponse.BuyingCurrency.ToEnum<Currency>(true));
-                var rateGBP = _rateService.GetBrokerRate(latestRates, Currency.GBP);
-
-                tradeResponse.BrokerRate = _rateService.GetBrokerRate(latestRates, tradeResponse.SellingCurrency.ToEnum<Currency>(true)) / rateBuyingCurrency;
-                tradeResponse.PurchasedAmount = tradeResponse.SoldAmount / (tradeResponse.BrokerRate / (1M + (_appConfig.Value.TotalEnrichmentPercent / 100)));
-                tradeResponse.ProfitInBuyingCurrency = tradeResponse.PurchasedAmount - (tradeResponse.SoldAmount / tradeResponse.BrokerRate);
-                tradeResponse.ProfitInGBP = tradeResponse.ProfitInBuyingCurrency / (rateBuyingCurrency / rateGBP);
-
-                var response = _tradeService.AddOnDate(_mapper.Map<TradeDto>(tradeResponse));
-                await _tradeService.SaveChangesAsync();
-                return Accepted(_mapper.Map<TradeResponse>(response));
+                var response = await _tradeFacade.CreateAsync(trade, _appConfig.Value.TotalEnrichmentPercent);
+                return CreatedAtAction("CreateTrade", _mapper.Map<TradeResponse>(response));
             }
             else
                 throw new WebServiceException(ErrorCode.InvalidParameters, "Invalid model.");

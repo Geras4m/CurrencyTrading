@@ -11,6 +11,8 @@ namespace OXR.Trading.Core.DI
             services.AddScoped<ITradeService, TradeService>();
             services.AddScoped<IProfitService, ProfitService>();
             services.AddScoped<IRateService, RateService>();
+            services.AddScoped<ITradeFacade, TradeFacade>();
+            services.AddScoped<IProfitFacade, ProfitFacade>();
         }
     }
 }

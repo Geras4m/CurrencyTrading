@@ -5,7 +5,7 @@ using OXR.Trading.Data.Entities;
 using OXR.Trading.Data.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace OXR.Trading.Core.Services
 {
@@ -15,14 +15,11 @@ namespace OXR.Trading.Core.Services
         public TradeService(ITradeRepository tradeRepository, IMyMapper mapper)
             : base(tradeRepository, mapper)
         {
-            _tradeRepository = tradeRepository ?? throw new ArgumentNullException(nameof(tradeRepository));
+            _tradeRepository = tradeRepository;
         }
 
         public IList<TradeDto> GetAllPaged(int page = 1, int size = 3)
-        { 
-            var entities = _tradeRepository.SelectAllPaged(page, size);
-            return _mapper.Map<IList<TradeDto>>(entities);
-        }
+            => _mapper.Map<IList<TradeDto>>(_tradeRepository.SelectAllPaged(page, size));
 
         public IList<TradeDto> GetTradesByDate(DateTime date)
             => _mapper.Map<IList<TradeDto>>(_tradeRepository.SelectTradesByDate(date));
